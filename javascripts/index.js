@@ -11,6 +11,9 @@ var LOOP;
 var TIMER;
 var ALARM_TIME;
 
+var VOICES = window.speechSynthesis.getVoices();
+
+
 function time_to_words(hours, minutes) {
 
     var time = "It is ";
@@ -19,8 +22,8 @@ function time_to_words(hours, minutes) {
         var minute = ones[minutes];
     } else {
         var minute = tens[Math.floor(minutes / 10)];
-        minute += " " + ones[minutes % 10];
-
+        if (minutes > 0)
+            minute += " " + ones[minutes % 10];
     }
 
     if (minutes == 0) {
@@ -59,12 +62,12 @@ function generate_time() {
 
 function read_time() {
     var msg = new SpeechSynthesisUtterance();
-    var voices = window.speechSynthesis.getVoices();
-    msg.voice = voices[1]; // Note: some voices don't support altering params
+    VOICES = window.speechSynthesis.getVoices();
+    msg.voice = VOICES[0]; // Note: some voices don't support altering params
     msg.voiceURI = 'native';
     msg.volume = 1; // 0 to 1
     msg.rate = 1; // 0.1 to 10
-    msg.pitch = 0; //0 to 2
+    msg.pitch = .8; //0 to 2
     msg.text = generate_time();
     msg.lang = 'en-US';
 
