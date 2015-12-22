@@ -25,9 +25,7 @@ function time_to_words(hours, minutes) {
 
     if (minutes == 0) {
         minute = " O clock ";
-    }
-
-    if (minutes < 10) {
+    } else if (minutes < 10) {
         minute = " O " + minute;
     }
 
@@ -130,8 +128,6 @@ function main_loop() {
         read_time();
         set_alert_time();
 
-    } else {
-        console.log(now.getTime() + " " + ALARM_TIME);
     }
     set_cur_time();
     set_wait_time();
