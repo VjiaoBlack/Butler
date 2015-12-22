@@ -110,10 +110,6 @@ function edit_interval() {
         start_reading();
     }
 
-
-    alert("Interval is: " + window.INTERVAL);
-
-
 }
 
 function start_reading() {
