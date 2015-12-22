@@ -36,7 +36,10 @@ function time_to_words(hours, minutes) {
 }
 
 function number_to_word(number) {
-    return tens[Math.floor(number / 10)] + " " + ones[number % 10];
+    if (number > 19)
+        return tens[Math.floor(number / 10)] + " " + ones[number % 10];
+    else
+        return ones[number];
 }
 
 function generate_time() {
