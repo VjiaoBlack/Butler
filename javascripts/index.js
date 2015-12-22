@@ -18,26 +18,33 @@ function time_to_words(hours, minutes) {
 
     var time = "It is ";
     var hour = ones[hours];
-    if (minutes < 20) {
-        var minute = ones[minutes];
-    } else {
-        var minute = tens[Math.floor(minutes / 10)];
-        if (minutes > 0)
-            minute += " " + ones[minutes % 10];
-    }
+
+    if (hours == 0)
+        hours = "";
 
     if (minutes == 0) {
         minute = " O clock ";
+
     } else if (minutes < 10) {
         minute = " O " + minute;
+
+    } else if (minutes < 20) {
+        var minute = ones[minutes];
+
+    } else {
+        var minute = tens[Math.floor(minutes / 10)];
+        if (minutes % 10 != 0)
+            minute += " " + ones[minutes % 10];
     }
 
     time += hour + " " + minute;
+
 
     return time;
 }
 
 function number_to_word(number) {
+
     if (number > 19)
         return tens[Math.floor(number / 10)] + " " + ones[number % 10];
     else
@@ -185,6 +192,8 @@ function set_wait_time() {
 }
 
 start_reading();
+
+
 
 
 
