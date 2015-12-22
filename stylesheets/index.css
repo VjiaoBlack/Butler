@@ -1,0 +1,30 @@
+html, body {
+    margin: 0;
+    font-family: Helvetica;
+    background-color: black;
+}
+
+#content {
+    margin-left: calc(50% - 300px);
+    margin-top: 100px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: rgba(255,255,255,.3);
+
+    cursor: default;
+}
+
+h2 #interval {
+    border: none;
+    background-color: rgba(0,0,0,0);
+
+
+    color: rgba(255,255,255,.6);
+    cursor: text;
+}
+
+h2 #interval:hover {
+    color: rgba(255,255,255,1);
+}
+
