@@ -1,5 +1,5 @@
 
-var ones = ["", "one", "two", "three", "four", "five",
+var ones = ["zero", "one", "two", "three", "four", "five",
             "six", "seven", "eight", "nine", "ten",
             "eleven", "twelve", "thirteen", "fourteen", "fifteen",
             "sixteen", "seventeen", "eighteen", "nineteen"];
@@ -9,6 +9,7 @@ var INTERVAL = 15;
 var LOOP;
 
 var TIMER;
+var ALARM_TIME;
 
 function time_to_words(hours, minutes) {
 
@@ -119,35 +120,25 @@ function start_reading() {
     if (window.LOOP) {
         clearInterval(window.LOOP);
     }
+    set_alert_time(INTERVAL);
 
-    var now = new Date();
-    var time = [ now.getMinutes(), now.getSeconds() ];
-
-    // var min_til = window.INTERVAL;
-    // var sec_til = (time[1] == 0) ? 0 : 60 - time[1];
-
-    // if (sec_til != 0) {
-    //     if (min_til != 0)
-    //         min_til--;
-    // }
 
     window.LOOP = setInterval(function() {
-        read_time();
-    }, INTERVAL * 60 * 1000);
-
-    setInterval(function() {
-        set_cur_time();
-    }, 100);
-
-    set_alert_time(INTERVAL);
-    setInterval(function() {
-        set_alert_time(INTERVAL);
-    }, 1000 * 60 * INTERVAL)
-
-
-    setInterval(function() {
-        set_wait_time();
+        main_loop();
     }, 100)
+}
+
+function main_loop() {
+    var now = new Date();
+    if (now.getTime() > ALARM_TIME) {
+        read_time();
+        set_alert_time();
+
+    } else {
+        console.log(now.getTime() + " " + ALARM_TIME);
+    }
+    set_cur_time();
+    set_wait_time();
 }
 
 function set_cur_time() {
@@ -158,9 +149,11 @@ function set_cur_time() {
     document.getElementById("cur_seconds").innerHTML = now.getSeconds();
 }
 
-function set_alert_time(minute_interval) {
+function set_alert_time() {
     var now = new Date();
-    var then = new Date(now.getTime() + minute_interval * 60000);
+    ALARM_TIME = now.getTime() + INTERVAL * 60000;
+
+    var then = new Date(ALARM_TIME);
     document.getElementById("alert_hours").innerHTML = then.getHours();
     document.getElementById("alert_minutes").innerHTML = then.getMinutes();
     document.getElementById("alert_seconds").innerHTML = then.getSeconds();
